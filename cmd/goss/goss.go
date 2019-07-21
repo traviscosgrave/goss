@@ -44,6 +44,11 @@ func main() {
 			Aliases: []string{"v"},
 			Usage:   "Validate system",
 			Flags: []cli.Flag{
+				cli.StringSliceFlag{
+					Name: "tags,t",
+					Usage: "List of tags to check",
+					EnvVar: "GOSS_TAGS",
+				},
 				cli.StringFlag{
 					Name:   "format, f",
 					Value:  "rspecish",

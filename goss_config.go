@@ -46,7 +46,7 @@ func NewGossConfig() *GossConfig {
 	}
 }
 
-func (c *GossConfig) Resources() []resource.Resource {
+func (c *GossConfig) Resources(tags []string) []resource.Resource {
 	var tests []resource.Resource
 
 	gm := genericConcatMaps(c.Commands,
@@ -69,13 +69,28 @@ func (c *GossConfig) Resources() []resource.Resource {
 	for _, m := range gm {
 		for _, t := range m {
 			// FIXME: Can this be moved to a safer compile-time check?
-			tests = append(tests, t.(resource.Resource))
+			if checkTags(t.(resource.ResourceRead).GetTags(), tags) {
+				tests = append(tests, t.(resource.Resource))
+			}
 		}
 	}
 
 	return tests
 }
 
+func checkTags(rtags []string, ctags []string) bool {
+	if len(ctags) == 0 {
+		return true
+	}
+	for _, ct := range ctags {
+		for _, rt := range rtags {
+			if ct == rt {
+				return true
+			}
+		}
+	}
+	return false
+}
 func genericConcatMaps(maps ...interface{}) (ret []map[string]interface{}) {
 	for _, slice := range maps {
 		im := interfaceMap(slice)

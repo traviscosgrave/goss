@@ -6,22 +6,24 @@ import (
 )
 
 type Mount struct {
-	Title      string  `json:"title,omitempty" yaml:"title,omitempty"`
-	Meta       meta    `json:"meta,omitempty" yaml:"meta,omitempty"`
-	MountPoint string  `json:"-" yaml:"-"`
-	Exists     matcher `json:"exists" yaml:"exists"`
-	Opts       matcher `json:"opts,omitempty" yaml:"opts,omitempty"`
-	Source     matcher `json:"source,omitempty" yaml:"source,omitempty"`
-	Filesystem matcher `json:"filesystem,omitempty" yaml:"filesystem,omitempty"`
-	Skip       bool    `json:"skip,omitempty" yaml:"skip,omitempty"`
+	Title      string   `json:"title,omitempty" yaml:"title,omitempty"`
+	Meta       meta     `json:"meta,omitempty" yaml:"meta,omitempty"`
+	Tags       []string `json:"tags" yaml:"tags"`
+	MountPoint string   `json:"-" yaml:"-"`
+	Exists     matcher  `json:"exists" yaml:"exists"`
+	Opts       matcher  `json:"opts,omitempty" yaml:"opts,omitempty"`
+	Source     matcher  `json:"source,omitempty" yaml:"source,omitempty"`
+	Filesystem matcher  `json:"filesystem,omitempty" yaml:"filesystem,omitempty"`
+	Skip       bool     `json:"skip,omitempty" yaml:"skip,omitempty"`
 }
 
 func (m *Mount) ID() string      { return m.MountPoint }
 func (m *Mount) SetID(id string) { m.MountPoint = id }
 
 // FIXME: Can this be refactored?
-func (m *Mount) GetTitle() string { return m.Title }
-func (m *Mount) GetMeta() meta    { return m.Meta }
+func (m *Mount) GetTitle() string   { return m.Title }
+func (m *Mount) GetMeta()  meta     { return m.Meta }
+func (m *Mount) GetTags()  []string { return m.Tags }
 
 func (m *Mount) Validate(sys *system.System) []TestResult {
 	skip := false

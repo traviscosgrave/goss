@@ -17,6 +17,7 @@ func (f *FakeResource) ID() string {
 func (f *FakeResource) GetTitle() string { return "title" }
 
 func (f *FakeResource) GetMeta() meta { return meta{"foo": "bar"} }
+func (f *FakeResource) GetTags() []string { return []{"fiz", "baz"} }
 
 var stringTests = []struct {
 	in, in2 interface{}

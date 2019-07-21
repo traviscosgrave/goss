@@ -133,6 +133,11 @@ func GetOutputer(name string) Outputer {
 	return outputers[name]
 }
 
+func CheckOutputer(name string) bool {
+	_, ok := outputers[name]
+	return ok
+}
+
 func subtractSlice(x, y []string) []string {
 	m := make(map[string]bool)
 

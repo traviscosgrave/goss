@@ -6,18 +6,20 @@ import (
 )
 
 type KernelParam struct {
-	Title string  `json:"title,omitempty" yaml:"title,omitempty"`
-	Meta  meta    `json:"meta,omitempty" yaml:"meta,omitempty"`
-	Key   string  `json:"-" yaml:"-"`
-	Value matcher `json:"value" yaml:"value"`
+	Title string   `json:"title,omitempty" yaml:"title,omitempty"`
+	Meta  meta     `json:"meta,omitempty" yaml:"meta,omitempty"`
+	Tags  []string `json:"tags" yaml:"tags"`
+	Key   string   `json:"-" yaml:"-"`
+	Value matcher  `json:"value" yaml:"value"`
 }
 
 func (a *KernelParam) ID() string      { return a.Key }
 func (a *KernelParam) SetID(id string) { a.Key = id }
 
 // FIXME: Can this be refactored?
-func (r *KernelParam) GetTitle() string { return r.Title }
-func (r *KernelParam) GetMeta() meta    { return r.Meta }
+func (r *KernelParam) GetTitle() string  { return r.Title }
+func (r *KernelParam) GetMeta() meta     { return r.Meta }
+func (r *KernelParam) GetTags() []string { return r.Tags }
 
 func (a *KernelParam) Validate(sys *system.System) []TestResult {
 	skip := false

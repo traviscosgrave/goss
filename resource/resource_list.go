@@ -28,6 +28,7 @@ func (r AddrMap) AppendSysResource(sr string, sys *system.System, config util.Co
 	if old_res, ok := r[res.ID()]; ok {
 		res.Title = old_res.Title
 		res.Meta = old_res.Meta
+		res.Tags = old_res.Tags
 	}
 	r[res.ID()] = res
 	return res, nil
@@ -43,6 +44,7 @@ func (r AddrMap) AppendSysResourceIfExists(sr string, sys *system.System) (*Addr
 	if old_res, ok := r[res.ID()]; ok {
 		res.Title = old_res.Title
 		res.Meta = old_res.Meta
+		res.Tags = old_res.Tags
 	}
 	r[res.ID()] = res
 	return res, sysres, true
@@ -128,6 +130,7 @@ func (r CommandMap) AppendSysResource(sr string, sys *system.System, config util
 	if old_res, ok := r[res.ID()]; ok {
 		res.Title = old_res.Title
 		res.Meta = old_res.Meta
+		res.Tags = old_res.Tags
 	}
 	r[res.ID()] = res
 	return res, nil
@@ -143,6 +146,7 @@ func (r CommandMap) AppendSysResourceIfExists(sr string, sys *system.System) (*C
 	if old_res, ok := r[res.ID()]; ok {
 		res.Title = old_res.Title
 		res.Meta = old_res.Meta
+		res.Tags = old_res.Tags
 	}
 	r[res.ID()] = res
 	return res, sysres, true
@@ -228,6 +232,7 @@ func (r DNSMap) AppendSysResource(sr string, sys *system.System, config util.Con
 	if old_res, ok := r[res.ID()]; ok {
 		res.Title = old_res.Title
 		res.Meta = old_res.Meta
+		res.Tags = old_res.Tags
 	}
 	r[res.ID()] = res
 	return res, nil
@@ -243,6 +248,7 @@ func (r DNSMap) AppendSysResourceIfExists(sr string, sys *system.System) (*DNS, 
 	if old_res, ok := r[res.ID()]; ok {
 		res.Title = old_res.Title
 		res.Meta = old_res.Meta
+		res.Tags = old_res.Tags
 	}
 	r[res.ID()] = res
 	return res, sysres, true
@@ -328,6 +334,7 @@ func (r FileMap) AppendSysResource(sr string, sys *system.System, config util.Co
 	if old_res, ok := r[res.ID()]; ok {
 		res.Title = old_res.Title
 		res.Meta = old_res.Meta
+		res.Tags = old_res.Tags
 	}
 	r[res.ID()] = res
 	return res, nil
@@ -343,6 +350,7 @@ func (r FileMap) AppendSysResourceIfExists(sr string, sys *system.System) (*File
 	if old_res, ok := r[res.ID()]; ok {
 		res.Title = old_res.Title
 		res.Meta = old_res.Meta
+		res.Tags = old_res.Tags
 	}
 	r[res.ID()] = res
 	return res, sysres, true
@@ -428,6 +436,7 @@ func (r GossfileMap) AppendSysResource(sr string, sys *system.System, config uti
 	if old_res, ok := r[res.ID()]; ok {
 		res.Title = old_res.Title
 		res.Meta = old_res.Meta
+		res.Tags = old_res.Tags
 	}
 	r[res.ID()] = res
 	return res, nil
@@ -443,6 +452,7 @@ func (r GossfileMap) AppendSysResourceIfExists(sr string, sys *system.System) (*
 	if old_res, ok := r[res.ID()]; ok {
 		res.Title = old_res.Title
 		res.Meta = old_res.Meta
+		res.Tags = old_res.Tags
 	}
 	r[res.ID()] = res
 	return res, sysres, true
@@ -528,6 +538,7 @@ func (r GroupMap) AppendSysResource(sr string, sys *system.System, config util.C
 	if old_res, ok := r[res.ID()]; ok {
 		res.Title = old_res.Title
 		res.Meta = old_res.Meta
+		res.Tags = old_res.Tags
 	}
 	r[res.ID()] = res
 	return res, nil
@@ -543,6 +554,7 @@ func (r GroupMap) AppendSysResourceIfExists(sr string, sys *system.System) (*Gro
 	if old_res, ok := r[res.ID()]; ok {
 		res.Title = old_res.Title
 		res.Meta = old_res.Meta
+		res.Tags = old_res.Tags
 	}
 	r[res.ID()] = res
 	return res, sysres, true
@@ -628,6 +640,7 @@ func (r PackageMap) AppendSysResource(sr string, sys *system.System, config util
 	if old_res, ok := r[res.ID()]; ok {
 		res.Title = old_res.Title
 		res.Meta = old_res.Meta
+		res.Tags = old_res.Tags
 	}
 	r[res.ID()] = res
 	return res, nil
@@ -643,6 +656,7 @@ func (r PackageMap) AppendSysResourceIfExists(sr string, sys *system.System) (*P
 	if old_res, ok := r[res.ID()]; ok {
 		res.Title = old_res.Title
 		res.Meta = old_res.Meta
+		res.Tags = old_res.Tags
 	}
 	r[res.ID()] = res
 	return res, sysres, true
@@ -728,6 +742,7 @@ func (r PortMap) AppendSysResource(sr string, sys *system.System, config util.Co
 	if old_res, ok := r[res.ID()]; ok {
 		res.Title = old_res.Title
 		res.Meta = old_res.Meta
+		res.Tags = old_res.Tags
 	}
 	r[res.ID()] = res
 	return res, nil
@@ -743,6 +758,7 @@ func (r PortMap) AppendSysResourceIfExists(sr string, sys *system.System) (*Port
 	if old_res, ok := r[res.ID()]; ok {
 		res.Title = old_res.Title
 		res.Meta = old_res.Meta
+		res.Tags = old_res.Tags
 	}
 	r[res.ID()] = res
 	return res, sysres, true
@@ -828,6 +844,7 @@ func (r ProcessMap) AppendSysResource(sr string, sys *system.System, config util
 	if old_res, ok := r[res.ID()]; ok {
 		res.Title = old_res.Title
 		res.Meta = old_res.Meta
+		res.Tags = old_res.Tags
 	}
 	r[res.ID()] = res
 	return res, nil
@@ -843,6 +860,7 @@ func (r ProcessMap) AppendSysResourceIfExists(sr string, sys *system.System) (*P
 	if old_res, ok := r[res.ID()]; ok {
 		res.Title = old_res.Title
 		res.Meta = old_res.Meta
+		res.Tags = old_res.Tags
 	}
 	r[res.ID()] = res
 	return res, sysres, true
@@ -928,6 +946,7 @@ func (r ServiceMap) AppendSysResource(sr string, sys *system.System, config util
 	if old_res, ok := r[res.ID()]; ok {
 		res.Title = old_res.Title
 		res.Meta = old_res.Meta
+		res.Tags = old_res.Tags
 	}
 	r[res.ID()] = res
 	return res, nil
@@ -943,6 +962,7 @@ func (r ServiceMap) AppendSysResourceIfExists(sr string, sys *system.System) (*S
 	if old_res, ok := r[res.ID()]; ok {
 		res.Title = old_res.Title
 		res.Meta = old_res.Meta
+		res.Tags = old_res.Tags
 	}
 	r[res.ID()] = res
 	return res, sysres, true
@@ -1028,6 +1048,7 @@ func (r UserMap) AppendSysResource(sr string, sys *system.System, config util.Co
 	if old_res, ok := r[res.ID()]; ok {
 		res.Title = old_res.Title
 		res.Meta = old_res.Meta
+		res.Tags = old_res.Tags
 	}
 	r[res.ID()] = res
 	return res, nil
@@ -1043,6 +1064,7 @@ func (r UserMap) AppendSysResourceIfExists(sr string, sys *system.System) (*User
 	if old_res, ok := r[res.ID()]; ok {
 		res.Title = old_res.Title
 		res.Meta = old_res.Meta
+		res.Tags = old_res.Tags
 	}
 	r[res.ID()] = res
 	return res, sysres, true
@@ -1128,6 +1150,7 @@ func (r KernelParamMap) AppendSysResource(sr string, sys *system.System, config 
 	if old_res, ok := r[res.ID()]; ok {
 		res.Title = old_res.Title
 		res.Meta = old_res.Meta
+		res.Tags = old_res.Tags
 	}
 	r[res.ID()] = res
 	return res, nil
@@ -1143,6 +1166,7 @@ func (r KernelParamMap) AppendSysResourceIfExists(sr string, sys *system.System)
 	if old_res, ok := r[res.ID()]; ok {
 		res.Title = old_res.Title
 		res.Meta = old_res.Meta
+		res.Tags = old_res.Tags
 	}
 	r[res.ID()] = res
 	return res, sysres, true
@@ -1228,6 +1252,7 @@ func (r MountMap) AppendSysResource(sr string, sys *system.System, config util.C
 	if old_res, ok := r[res.ID()]; ok {
 		res.Title = old_res.Title
 		res.Meta = old_res.Meta
+		res.Tags = old_res.Tags
 	}
 	r[res.ID()] = res
 	return res, nil
@@ -1243,6 +1268,7 @@ func (r MountMap) AppendSysResourceIfExists(sr string, sys *system.System) (*Mou
 	if old_res, ok := r[res.ID()]; ok {
 		res.Title = old_res.Title
 		res.Meta = old_res.Meta
+		res.Tags = old_res.Tags
 	}
 	r[res.ID()] = res
 	return res, sysres, true
@@ -1328,6 +1354,7 @@ func (r InterfaceMap) AppendSysResource(sr string, sys *system.System, config ut
 	if old_res, ok := r[res.ID()]; ok {
 		res.Title = old_res.Title
 		res.Meta = old_res.Meta
+		res.Tags = old_res.Tags
 	}
 	r[res.ID()] = res
 	return res, nil
@@ -1343,6 +1370,7 @@ func (r InterfaceMap) AppendSysResourceIfExists(sr string, sys *system.System) (
 	if old_res, ok := r[res.ID()]; ok {
 		res.Title = old_res.Title
 		res.Meta = old_res.Meta
+		res.Tags = old_res.Tags
 	}
 	r[res.ID()] = res
 	return res, sysres, true
@@ -1428,6 +1456,7 @@ func (r HTTPMap) AppendSysResource(sr string, sys *system.System, config util.Co
 	if old_res, ok := r[res.ID()]; ok {
 		res.Title = old_res.Title
 		res.Meta = old_res.Meta
+		res.Tags = old_res.Tags
 	}
 	r[res.ID()] = res
 	return res, nil
@@ -1443,6 +1472,7 @@ func (r HTTPMap) AppendSysResourceIfExists(sr string, sys *system.System) (*HTTP
 	if old_res, ok := r[res.ID()]; ok {
 		res.Title = old_res.Title
 		res.Meta = old_res.Meta
+		res.Tags = old_res.Tags
 	}
 	r[res.ID()] = res
 	return res, sysres, true

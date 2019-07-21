@@ -6,21 +6,23 @@ import (
 )
 
 type Interface struct {
-	Title  string  `json:"title,omitempty" yaml:"title,omitempty"`
-	Meta   meta    `json:"meta,omitempty" yaml:"meta,omitempty"`
-	Name   string  `json:"-" yaml:"-"`
-	Exists matcher `json:"exists" yaml:"exists"`
-	Addrs  matcher `json:"addrs,omitempty" yaml:"addrs,omitempty"`
-	MTU    matcher `json:"mtu,omitempty" yaml:"mtu,omitempty"`
-	Skip   bool    `json:"skip,omitempty" yaml:"skip,omitempty"`
+	Title  string   `json:"title,omitempty" yaml:"title,omitempty"`
+	Meta   meta     `json:"meta,omitempty" yaml:"meta,omitempty"`
+	Tags   []string `json:"tags" yaml:"tags"`
+	Name   string   `json:"-" yaml:"-"`
+	Exists matcher  `json:"exists" yaml:"exists"`
+	Addrs  matcher  `json:"addrs,omitempty" yaml:"addrs,omitempty"`
+	MTU    matcher  `json:"mtu,omitempty" yaml:"mtu,omitempty"`
+	Skip   bool     `json:"skip,omitempty" yaml:"skip,omitempty"`
 }
 
 func (i *Interface) ID() string      { return i.Name }
 func (i *Interface) SetID(id string) { i.Name = id }
 
 // FIXME: Can this be refactored?
-func (i *Interface) GetTitle() string { return i.Title }
-func (i *Interface) GetMeta() meta    { return i.Meta }
+func (i *Interface) GetTitle() string  { return i.Title }
+func (i *Interface) GetMeta() meta     { return i.Meta }
+func (i *Interface) GetTags() []string { return i.Tags }
 
 func (i *Interface) Validate(sys *system.System) []TestResult {
 	skip := false

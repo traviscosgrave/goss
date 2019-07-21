@@ -8,22 +8,24 @@ import (
 )
 
 type DNS struct {
-	Title       string  `json:"title,omitempty" yaml:"title,omitempty"`
-	Meta        meta    `json:"meta,omitempty" yaml:"meta,omitempty"`
-	Host        string  `json:"-" yaml:"-"`
-	Resolveable matcher `json:"resolveable,omitempty" yaml:"resolveable,omitempty"`
-	Resolvable  matcher `json:"resolvable" yaml:"resolvable"`
-	Addrs       matcher `json:"addrs,omitempty" yaml:"addrs,omitempty"`
-	Timeout     int     `json:"timeout" yaml:"timeout"`
-	Server      string  `json:"server,omitempty" yaml:"server,omitempty"`
-	Skip        bool    `json:"skip,omitempty" yaml:"skip,omitempty"`
+	Title       string   `json:"title,omitempty" yaml:"title,omitempty"`
+	Meta        meta     `json:"meta,omitempty" yaml:"meta,omitempty"`
+	Tags        []string `json:"tags" yaml:"tags"`
+	Host        string   `json:"-" yaml:"-"`
+	Resolveable matcher  `json:"resolveable,omitempty" yaml:"resolveable,omitempty"`
+	Resolvable  matcher  `json:"resolvable" yaml:"resolvable"`
+	Addrs       matcher  `json:"addrs,omitempty" yaml:"addrs,omitempty"`
+	Timeout     int      `json:"timeout" yaml:"timeout"`
+	Server      string   `json:"server,omitempty" yaml:"server,omitempty"`
+	Skip        bool     `json:"skip,omitempty" yaml:"skip,omitempty"`
 }
 
 func (d *DNS) ID() string      { return d.Host }
 func (d *DNS) SetID(id string) { d.Host = id }
 
-func (d *DNS) GetTitle() string { return d.Title }
-func (d *DNS) GetMeta() meta    { return d.Meta }
+func (d *DNS) GetTitle() string  { return d.Title }
+func (d *DNS) GetMeta() meta     { return d.Meta }
+func (d *DNS) GetTags() []string { return d.Tags }
 
 func (d *DNS) Validate(sys *system.System) []TestResult {
 	skip := false

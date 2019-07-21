@@ -8,23 +8,25 @@ import (
 )
 
 type User struct {
-	Title    string  `json:"title,omitempty" yaml:"title,omitempty"`
-	Meta     meta    `json:"meta,omitempty" yaml:"meta,omitempty"`
-	Username string  `json:"-" yaml:"-"`
-	Exists   matcher `json:"exists" yaml:"exists"`
-	UID      matcher `json:"uid,omitempty" yaml:"uid,omitempty"`
-	GID      matcher `json:"gid,omitempty" yaml:"gid,omitempty"`
-	Groups   matcher `json:"groups,omitempty" yaml:"groups,omitempty"`
-	Home     matcher `json:"home,omitempty" yaml:"home,omitempty"`
-	Shell    matcher `json:"shell,omitempty" yaml:"shell,omitempty"`
-	Skip     bool    `json:"skip,omitempty" yaml:"skip,omitempty"`
+	Title    string   `json:"title,omitempty" yaml:"title,omitempty"`
+	Meta     meta     `json:"meta,omitempty" yaml:"meta,omitempty"`
+	Tags     []string `json:"tags" yaml:"tags"`
+	Username string   `json:"-" yaml:"-"`
+	Exists   matcher  `json:"exists" yaml:"exists"`
+	UID      matcher  `json:"uid,omitempty" yaml:"uid,omitempty"`
+	GID      matcher  `json:"gid,omitempty" yaml:"gid,omitempty"`
+	Groups   matcher  `json:"groups,omitempty" yaml:"groups,omitempty"`
+	Home     matcher  `json:"home,omitempty" yaml:"home,omitempty"`
+	Shell    matcher  `json:"shell,omitempty" yaml:"shell,omitempty"`
+	Skip     bool     `json:"skip,omitempty" yaml:"skip,omitempty"`
 }
 
 func (u *User) ID() string      { return u.Username }
 func (u *User) SetID(id string) { u.Username = id }
 
-func (u *User) GetTitle() string { return u.Title }
-func (u *User) GetMeta() meta    { return u.Meta }
+func (u *User) GetTitle() string  { return u.Title }
+func (u *User) GetMeta() meta     { return u.Meta }
+func (u *User) GetTags() []string { return u.Tags }
 
 func (u *User) Validate(sys *system.System) []TestResult {
 	skip := false

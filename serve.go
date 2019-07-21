@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"log"
 	"net/http"
+	"strings"
 	"sync"
 	"time"
 
@@ -55,30 +56,45 @@ type healthHandler struct {
 
 func (h healthHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
+	var resp res
+
+	splitFunc := func(c rune) bool {
+		return c == ','
+	}
 	outputConfig := util.OutputConfig{
 		FormatOptions: h.c.StringSlice("format-options"),
 	}
+	format := r.URL.Query().Get("format")
+	if outputs.CheckOutputer(format) {
+		h.outputer = getOutputerByName(h.c, format)
+	} else {
+		h.outputer = getOutputer(h.c)
+	}
 
-	log.Printf("%v: requesting health probe", r.RemoteAddr)
-	var resp res
-	tmp, found := h.cache.Get("res")
+	rawTags := r.URL.Query().Get("tags")
+	tags := strings.FieldsFunc(rawTags, splitFunc)
+
+	log.Printf("%v: requesting health probe for tags %v with format '%v'", r.RemoteAddr, tags, format)
+
+	cacheKey := strings.Join([]string{"res", rawTags, format}, "--")
+	tmp, found := h.cache.Get(cacheKey)
 	if found {
 		resp = tmp.(res)
 	} else {
 		h.gossMu.Lock()
 		defer h.gossMu.Unlock()
-		tmp, found := h.cache.Get("res")
+		tmp, found := h.cache.Get(cacheKey)
 		if found {
 			resp = tmp.(res)
 		} else {
 			h.sys = system.New(h.c)
 			log.Printf("%v: Stale cache, running tests", r.RemoteAddr)
 			iStartTime := time.Now()
-			out := validate(h.sys, h.gossConfig, h.maxConcurrent)
+			out := validate(h.sys, h.gossConfig, h.maxConcurrent, tags)
 			var b bytes.Buffer
 			exitCode := h.outputer.Output(&b, out, iStartTime, outputConfig)
 			resp = res{exitCode: exitCode, b: b}
-			h.cache.Set("res", resp, cache.DefaultExpiration)
+			h.cache.Set(cacheKey, resp, cache.DefaultExpiration)
 		}
 	}
 	if h.contentType != "" {

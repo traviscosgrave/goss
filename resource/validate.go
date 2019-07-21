@@ -35,6 +35,7 @@ type TestResult struct {
 	ResourceType string        `json:"resource-type" yaml:"resource-type"`
 	Title        string        `json:"title" yaml:"title"`
 	Meta         meta          `json:"meta" yaml:"meta"`
+	Tags         []string      `json:"tags" yaml:"tags"`
 	TestType     int           `json:"test-type" yaml:"test-type"`
 	Result       int           `json:"result" yaml:"result"`
 	Property     string        `json:"property" yaml:"property"`
@@ -45,7 +46,7 @@ type TestResult struct {
 	Duration     time.Duration `json:"duration" yaml:"duration"`
 }
 
-func skipResult(typeS string, testType int, id string, title string, meta meta, property string, startTime time.Time) TestResult {
+func skipResult(typeS string, testType int, id string, title string, meta meta, tags []string, property string, startTime time.Time) TestResult {
 	return TestResult{
 		Successful:   true,
 		Result:       SKIP,
@@ -54,6 +55,7 @@ func skipResult(typeS string, testType int, id string, title string, meta meta, 
 		ResourceId:   id,
 		Title:        title,
 		Meta:         meta,
+		Tags:         tags,
 		Property:     property,
 		Duration:     startTime.Sub(startTime),
 	}
@@ -63,6 +65,7 @@ func ValidateValue(res ResourceRead, property string, expectedValue interface{},
 	id := res.ID()
 	title := res.GetTitle()
 	meta := res.GetMeta()
+	tags := res.GetTags()
 	typ := reflect.TypeOf(res)
 	typeS := strings.Split(typ.String(), ".")[1]
 	startTime := time.Now()
@@ -73,6 +76,7 @@ func ValidateValue(res ResourceRead, property string, expectedValue interface{},
 			id,
 			title,
 			meta,
+			tags,
 			property,
 			startTime,
 		)
@@ -113,6 +117,7 @@ func ValidateValue(res ResourceRead, property string, expectedValue interface{},
 			ResourceId:   id,
 			Title:        title,
 			Meta:         meta,
+			Tags:         tags,
 			Property:     property,
 			Err:          err,
 			Duration:     time.Now().Sub(startTime),
@@ -137,6 +142,7 @@ func ValidateValue(res ResourceRead, property string, expectedValue interface{},
 		ResourceId:   id,
 		Title:        title,
 		Meta:         meta,
+		Tags:         tags,
 		Property:     property,
 		Expected:     []string{string(expected)},
 		Found:        []string{string(found)},
@@ -251,6 +257,7 @@ func ValidateContains(res ResourceRead, property string, expectedValues []string
 	id := res.ID()
 	title := res.GetTitle()
 	meta := res.GetMeta()
+	tags := res.GetTags()
 	typ := reflect.TypeOf(res)
 	typeS := strings.Split(typ.String(), ".")[1]
 	startTime := time.Now()
@@ -261,6 +268,7 @@ func ValidateContains(res ResourceRead, property string, expectedValues []string
 			id,
 			title,
 			meta,
+			tags,
 			property,
 			startTime,
 		)
@@ -279,6 +287,7 @@ func ValidateContains(res ResourceRead, property string, expectedValues []string
 			ResourceId:   id,
 			Title:        title,
 			Meta:         meta,
+			Tags:         tags,
 			Property:     property,
 			Expected:     expectedValues,
 			Duration:     time.Now().Sub(startTime),
@@ -296,6 +305,7 @@ func ValidateContains(res ResourceRead, property string, expectedValues []string
 			ResourceId:   id,
 			Title:        title,
 			Meta:         meta,
+			Tags:         tags,
 			Property:     property,
 			Err:          err,
 			Duration:     time.Now().Sub(startTime),
@@ -341,6 +351,7 @@ func ValidateContains(res ResourceRead, property string, expectedValues []string
 			ResourceId:   id,
 			Title:        title,
 			Meta:         meta,
+			Tags:         tags,
 			Property:     property,
 			Err:          err,
 			Duration:     time.Now().Sub(startTime),
@@ -364,6 +375,7 @@ func ValidateContains(res ResourceRead, property string, expectedValues []string
 			ResourceId:   id,
 			Title:        title,
 			Meta:         meta,
+			Tags:         tags,
 			Property:     property,
 			Expected:     expectedValues,
 			Found:        patternsToSlice(found),
@@ -378,6 +390,7 @@ func ValidateContains(res ResourceRead, property string, expectedValues []string
 		ResourceId:   id,
 		Title:        title,
 		Meta:         meta,
+		Tags:         tags,
 		Property:     property,
 		Expected:     expectedValues,
 		Found:        patternsToSlice(found),

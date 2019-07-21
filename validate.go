@@ -43,7 +43,7 @@ func getGossConfig(c *cli.Context) GossConfig {
 
 	gossConfig = mergeJSONData(gossConfig, 0, path)
 
-	if len(gossConfig.Resources()) == 0 {
+	if len(gossConfig.Resources([]string{})) == 0 {
 		fmt.Printf("Error: found 0 tests, source: %v\n", source)
 		os.Exit(1)
 	}
@@ -58,6 +58,16 @@ func getOutputer(c *cli.Context) outputs.Outputer {
 		color.NoColor = false
 	}
 	return outputs.GetOutputer(c.String("format"))
+}
+
+func getOutputerByName(c *cli.Context, format string) outputs.Outputer {
+	if c.Bool("no-color") {
+		color.NoColor = true
+	}
+	if c.Bool("color") {
+		color.NoColor = false
+	}
+	return outputs.GetOutputer(format)
 }
 
 func Validate(c *cli.Context, startTime time.Time) {
@@ -75,7 +85,7 @@ func Validate(c *cli.Context, startTime time.Time) {
 	i := 1
 	for {
 		iStartTime := time.Now()
-		out := validate(sys, gossConfig, c.Int("max-concurrent"))
+		out := validate(sys, gossConfig, c.Int("max-concurrent"), c.StringSlice("tags"))
 		exitCode := outputer.Output(os.Stdout, out, iStartTime, outputConfig)
 		if retryTimeout == 0 || exitCode == 0 {
 			os.Exit(exitCode)
@@ -94,12 +104,12 @@ func Validate(c *cli.Context, startTime time.Time) {
 	}
 }
 
-func validate(sys *system.System, gossConfig GossConfig, maxConcurrent int) <-chan []resource.TestResult {
+func validate(sys *system.System, gossConfig GossConfig, maxConcurrent int, tags []string) <-chan []resource.TestResult {
 	out := make(chan []resource.TestResult)
 	in := make(chan resource.Resource)
 
 	go func() {
-		for _, t := range gossConfig.Resources() {
+		for _, t := range gossConfig.Resources(tags) {
 			in <- t
 		}
 		close(in)

@@ -19,6 +19,7 @@ type ResourceRead interface {
 	ID() string
 	GetTitle() string
 	GetMeta() meta
+	GetTags() []string
 }
 
 type matcher interface{}

@@ -13,6 +13,7 @@ import (
 type Matching struct {
 	Title   string      `json:"title,omitempty" yaml:"title,omitempty"`
 	Meta    meta        `json:"meta,omitempty" yaml:"meta,omitempty"`
+	Tags    []string    `json:"tags" yaml:"tags"`
 	Content interface{} `json:"content,omitempty" yaml:"content,omitempty"`
 	Id      string      `json:"-" yaml:"-"`
 	Matches matcher     `json:"matches" yaml:"matches"`
@@ -24,8 +25,9 @@ func (a *Matching) ID() string      { return a.Id }
 func (a *Matching) SetID(id string) { a.Id = id }
 
 // FIXME: Can this be refactored?
-func (r *Matching) GetTitle() string { return r.Title }
-func (r *Matching) GetMeta() meta    { return r.Meta }
+func (r *Matching) GetTitle() string  { return r.Title }
+func (r *Matching) GetMeta() meta     { return r.Meta }
+func (r *Matching) GetTags() []string { return r.Tags }
 
 func (a *Matching) Validate(sys *system.System) []TestResult {
 	skip := false

@@ -8,6 +8,7 @@ import (
 type File struct {
 	Title    string   `json:"title,omitempty" yaml:"title,omitempty"`
 	Meta     meta     `json:"meta,omitempty" yaml:"meta,omitempty"`
+	Tags     []string `json:"tags" yaml:"tags"`
 	Path     string   `json:"-" yaml:"-"`
 	Exists   matcher  `json:"exists" yaml:"exists"`
 	Mode     matcher  `json:"mode,omitempty" yaml:"mode,omitempty"`
@@ -25,8 +26,9 @@ type File struct {
 func (f *File) ID() string      { return f.Path }
 func (f *File) SetID(id string) { f.Path = id }
 
-func (f *File) GetTitle() string { return f.Title }
-func (f *File) GetMeta() meta    { return f.Meta }
+func (f *File) GetTitle() string  { return f.Title }
+func (f *File) GetMeta() meta     { return f.Meta }
+func (f *File) GetTags() []string { return f.Tags }
 
 func (f *File) Validate(sys *system.System) []TestResult {
 	skip := false

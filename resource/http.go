@@ -8,6 +8,7 @@ import (
 type HTTP struct {
 	Title             string   `json:"title,omitempty" yaml:"title,omitempty"`
 	Meta              meta     `json:"meta,omitempty" yaml:"meta,omitempty"`
+	Tags              []string `json:"tags" yaml:"tags"`
 	HTTP              string   `json:"-" yaml:"-"`
 	Status            matcher  `json:"status" yaml:"status"`
 	AllowInsecure     bool     `json:"allow-insecure" yaml:"allow-insecure"`
@@ -23,8 +24,9 @@ func (u *HTTP) ID() string      { return u.HTTP }
 func (u *HTTP) SetID(id string) { u.HTTP = id }
 
 // FIXME: Can this be refactored?
-func (r *HTTP) GetTitle() string { return r.Title }
-func (r *HTTP) GetMeta() meta    { return r.Meta }
+func (r *HTTP) GetTitle() string  { return r.Title }
+func (r *HTTP) GetMeta() meta     { return r.Meta }
+func (r *HTTP) GetTags() []string { return r.Tags }
 
 func (u *HTTP) Validate(sys *system.System) []TestResult {
 	skip := false

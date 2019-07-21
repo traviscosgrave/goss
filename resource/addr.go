@@ -6,19 +6,21 @@ import (
 )
 
 type Addr struct {
-	Title     string  `json:"title,omitempty" yaml:"title,omitempty"`
-	Meta      meta    `json:"meta,omitempty" yaml:"meta,omitempty"`
-	Address   string  `json:"-" yaml:"-"`
-	Reachable matcher `json:"reachable" yaml:"reachable"`
-	Timeout   int     `json:"timeout" yaml:"timeout"`
+	Title     string   `json:"title,omitempty" yaml:"title,omitempty"`
+	Meta      meta     `json:"meta,omitempty" yaml:"meta,omitempty"`
+	Tags      []string `json:"tags" yaml:"tags"`
+	Address   string   `json:"-" yaml:"-"`
+	Reachable matcher  `json:"reachable" yaml:"reachable"`
+	Timeout   int      `json:"timeout" yaml:"timeout"`
 }
 
 func (a *Addr) ID() string      { return a.Address }
 func (a *Addr) SetID(id string) { a.Address = id }
 
 // FIXME: Can this be refactored?
-func (r *Addr) GetTitle() string { return r.Title }
-func (r *Addr) GetMeta() meta    { return r.Meta }
+func (r *Addr) GetTitle() string  { return r.Title }
+func (r *Addr) GetMeta() meta     { return r.Meta }
+func (r *Addr) GetTags() []string { return r.Tags }
 
 func (a *Addr) Validate(sys *system.System) []TestResult {
 	skip := false

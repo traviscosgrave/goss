@@ -13,6 +13,7 @@ import (
 type Command struct {
 	Title      string   `json:"title,omitempty" yaml:"title,omitempty"`
 	Meta       meta     `json:"meta,omitempty" yaml:"meta,omitempty"`
+	Tags       []string `json:"tags" yaml:"tags"`
 	Command    string   `json:"-" yaml:"-"`
 	Exec       string   `json:"exec,omitempty" yaml:"exec,omitempty"`
 	ExitStatus matcher  `json:"exit-status" yaml:"exit-status"`
@@ -30,8 +31,9 @@ func (c *Command) ID() string {
 }
 func (c *Command) SetID(id string) { c.Command = id }
 
-func (c *Command) GetTitle() string { return c.Title }
-func (c *Command) GetMeta() meta    { return c.Meta }
+func (c *Command) GetTitle() string  { return c.Title }
+func (c *Command) GetMeta() meta     { return c.Meta }
+func (c *Command) GetTags() []string { return c.Tags }
 func (c *Command) GetExec() string {
 	if c.Exec != "" {
 		return c.Exec

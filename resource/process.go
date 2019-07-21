@@ -6,18 +6,20 @@ import (
 )
 
 type Process struct {
-	Title      string  `json:"title,omitempty" yaml:"title,omitempty"`
-	Meta       meta    `json:"meta,omitempty" yaml:"meta,omitempty"`
-	Executable string  `json:"-" yaml:"-"`
-	Running    matcher `json:"running" yaml:"running"`
-	Skip       bool    `json:"skip,omitempty" yaml:"skip,omitempty"`
+	Title      string   `json:"title,omitempty" yaml:"title,omitempty"`
+	Meta       meta     `json:"meta,omitempty" yaml:"meta,omitempty"`
+	Tags       []string `json:"tags" yaml:"tags"`
+	Executable string   `json:"-" yaml:"-"`
+	Running    matcher  `json:"running" yaml:"running"`
+	Skip       bool     `json:"skip,omitempty" yaml:"skip,omitempty"`
 }
 
 func (p *Process) ID() string      { return p.Executable }
 func (p *Process) SetID(id string) { p.Executable = id }
 
-func (p *Process) GetTitle() string { return p.Title }
-func (p *Process) GetMeta() meta    { return p.Meta }
+func (p *Process) GetTitle() string  { return p.Title }
+func (p *Process) GetMeta() meta     { return p.Meta }
+func (p *Process) GetTags() []string { return p.Tags }
 
 func (p *Process) Validate(sys *system.System) []TestResult {
 	skip := false

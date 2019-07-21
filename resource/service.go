@@ -6,19 +6,21 @@ import (
 )
 
 type Service struct {
-	Title   string  `json:"title,omitempty" yaml:"title,omitempty"`
-	Meta    meta    `json:"meta,omitempty" yaml:"meta,omitempty"`
-	Service string  `json:"-" yaml:"-"`
-	Enabled matcher `json:"enabled" yaml:"enabled"`
-	Running matcher `json:"running" yaml:"running"`
-	Skip    bool    `json:"skip,omitempty" yaml:"skip,omitempty"`
+	Title   string   `json:"title,omitempty" yaml:"title,omitempty"`
+	Meta    meta     `json:"meta,omitempty" yaml:"meta,omitempty"`
+	Tags    []string `json:"tags" yaml:"tags"`
+	Service string   `json:"-" yaml:"-"`
+	Enabled matcher  `json:"enabled" yaml:"enabled"`
+	Running matcher  `json:"running" yaml:"running"`
+	Skip    bool     `json:"skip,omitempty" yaml:"skip,omitempty"`
 }
 
 func (s *Service) ID() string      { return s.Service }
 func (s *Service) SetID(id string) { s.Service = id }
 
-func (s *Service) GetTitle() string { return s.Title }
-func (s *Service) GetMeta() meta    { return s.Meta }
+func (s *Service) GetTitle() string  { return s.Title }
+func (s *Service) GetMeta() meta     { return s.Meta }
+func (s *Service) GetTags() []string { return s.Tags }
 
 func (s *Service) Validate(sys *system.System) []TestResult {
 	skip := false

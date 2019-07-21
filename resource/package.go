@@ -8,6 +8,7 @@ import (
 type Package struct {
 	Title     string  `json:"title,omitempty" yaml:"title,omitempty"`
 	Meta      meta    `json:"meta,omitempty" yaml:"meta,omitempty"`
+	Tags      []string `json:"tags" yaml:"tags"`
 	Name      string  `json:"-" yaml:"-"`
 	Installed matcher `json:"installed" yaml:"installed"`
 	Versions  matcher `json:"versions,omitempty" yaml:"versions,omitempty"`
@@ -17,8 +18,9 @@ type Package struct {
 func (p *Package) ID() string      { return p.Name }
 func (p *Package) SetID(id string) { p.Name = id }
 
-func (p *Package) GetTitle() string { return p.Title }
-func (p *Package) GetMeta() meta    { return p.Meta }
+func (p *Package) GetTitle() string  { return p.Title }
+func (p *Package) GetMeta() meta     { return p.Meta }
+func (p *Package) GetTags() []string { return p.Tags }
 
 func (p *Package) Validate(sys *system.System) []TestResult {
 	skip := false
